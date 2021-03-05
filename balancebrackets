@@ -1,0 +1,62 @@
+#include <iostream>
+#include<stack>
+#include <string>
+#include <vector>
+using namespace std;
+
+bool balanced(string exp)
+{
+    stack<char> s;
+    char c;
+    for(int i=0;i<exp.length();i++)
+    {
+        if(exp[i]=='(' || exp[i]=='{' || exp[i]=='[')
+            s.push(exp[i]);
+            
+        switch(exp[i])
+        {
+            case ')' :
+                c=s.top();
+                s.pop();
+                if(c=='{' || c=='[')
+                    return false;
+                break;
+            case '}' :
+                c=s.top();
+                s.pop();
+                if(c=='(' || c=='[')
+                    return false;
+                break;
+            case ']' :
+                c=s.top();
+                s.pop();
+                if(c=='{' || c=='(')
+                    return false;
+                break;
+                
+        }
+        
+    }
+    return (s.empty());
+    
+}
+int main()
+{
+    long int n;
+    string exp;
+    cin>>n;
+    vector<string> vs;
+    for(int i=0;i<n;i++)
+    {
+        cin>>exp;
+        vs.push_back(exp);
+        if(balanced(vs[i]))
+            cout<<"YES\n";
+        else 
+            cout<<"NO\n";
+        
+    }
+    
+    
+    return 0;
+}
